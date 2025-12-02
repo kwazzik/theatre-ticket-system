@@ -27,12 +27,20 @@ class Genre(models.Model):
         return self.name
 
 
+def play_image_file_path(instance, filename):
+    _, extension = os.path.splitext(filename)
+    filename = f"{slugify(instance.title)}-{uuid.uuid4()}{extension}"
+
+    return os.path.join("uploads/movies/", filename)
+
+
 class Play(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
 
     actors = models.ManyToManyField(Actor, related_name="plays", blank=True)
     genres = models.ManyToManyField(Genre, related_name="plays", blank=True)
+    image = models.ImageField(upload_to=play_image_file_path, null=True)
 
     def __str__(self):
         return self.title
@@ -49,13 +57,6 @@ class TheatreHall(models.Model):
     @property
     def capacity(self):
         return self.rows * self.seats_in_row
-
-
-def play_image_file_path(instance, filename):
-    _, extension = os.path.splitext(filename)
-    filename = f"{slugify(instance.title)}-{uuid.uuid4()}{extension}"
-
-    return os.path.join("uploads/movies/", filename)
 
 
 class Performance(models.Model):

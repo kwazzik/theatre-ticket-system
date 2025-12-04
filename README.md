@@ -50,6 +50,39 @@ Theatre Ticket System is a web application built with Django REST Framework (DRF
     python manage.py runserver
     ```
 
+## Run with Docker (Optional)
+
+
+1. Build the image:
+
+    ```bash
+    docker build -t theatre-ticket-system .
+    ```
+
+2. Run the container:
+
+    ```bash
+    docker run -p 8000:8000 theatre-ticket-system
+    ```
+
+3. Run migrations:
+
+    ```bash
+    docker run theatre-ticket-system python manage.py migrate
+    ```
+
+4. Create superuser:
+
+    ```bash
+    docker run -it theatre-ticket-system python manage.py createsuperuser
+    ```
+
+5. API will be available at:
+
+    ```bash
+    http://localhost:8000
+    ```
+
 ---
 
 ## Usage
